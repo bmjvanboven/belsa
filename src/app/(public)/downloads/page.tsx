@@ -33,7 +33,15 @@ export default async function DownloadsPage() {
                 <div className="text-xs text-fg-muted">{d.filename}</div>
               </div>,
               d.category,
-              <Button key="dl" href={d.url} variant="ghost" size="sm">
+              <Button
+                key="dl"
+                href={d.url}
+                variant="ghost"
+                size="sm"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
                 Download →
               </Button>,
             ])}
