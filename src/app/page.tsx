@@ -1,65 +1,147 @@
 import Image from "next/image";
+import { Container } from "@/components/layout/Container";
+import { Card } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+
+const nieuws = [
+  {
+    tag: "Voetbal",
+    club: "RKSV Liessel",
+    title: "RKSV Liessel wint van SV Meijel",
+    body: "Zaterdag won het eerste elftal met 3-1 op eigen veld. Een sterke tweede helft was doorslaggevend.",
+  },
+  {
+    tag: "Volleybal",
+    club: "Livoc",
+    title: "Livoc dames promoveren naar 2e klasse",
+    body: "Na een sterk seizoen is promotie een feit. Komend weekend is de huldiging in de kantine.",
+  },
+  {
+    tag: "Korfbal",
+    club: "De Eendracht",
+    title: "Inschrijving jeugdkorfbal geopend",
+    body: "Kinderen van 6 t/m 12 jaar kunnen zich weer aanmelden voor het nieuwe seizoen.",
+  },
+  {
+    tag: "Tennis",
+    club: "Tennisclub Liessel",
+    title: "Nieuwe padelbanen geopend",
+    body: "Vanaf deze maand zijn er twee gloednieuwe padelbanen te reserveren via de app.",
+  },
+  {
+    tag: "Sportpark",
+    club: "Belsa",
+    title: "Onderhoud hoofdveld in augustus",
+    body: "Het hoofdveld wordt opnieuw ingezaaid; trainingen wijken tijdelijk uit naar veld 2.",
+  },
+  {
+    tag: "Nieuws",
+    club: "Belsa",
+    title: "Nieuwe kantinebeheerder gezocht",
+    body: "We zoeken een gezellig gezin of team dat de kantine op zaterdagen wil runnen.",
+  },
+];
+
+const agendaHighlights = [
+  { date: "do 30 jul", time: "19:30", title: "Bestuursvergadering BELSA", type: "Bestuurskamer" as const },
+  { date: "vr 31 jul", time: "20:00", title: "Kantineborrel vrijwilligers", type: "Kantine" as const },
+  { date: "ma 3 aug", time: "20:00", title: "Overleg RKSV Liessel bestuur", type: "Bestuurskamer" as const },
+  { date: "za 8 aug", time: "10:00", title: "Toernooi-ontvangst gasten", type: "Kantine" as const },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      <section className="bg-primary">
+        <Container className="flex flex-wrap items-center justify-between gap-8 py-16">
+          <div className="max-w-[560px]">
+            <Badge tone="dark">Sportpark De Smeltkroes</Badge>
+            <h1 className="mt-4 text-fg-on-yellow">Het kloppend hart van sportief Liessel</h1>
+            <p className="mt-4 text-lg text-black-800">
+              Thuis van RKSV Liessel, Livoc, De Eendracht en Tennisclub Liessel — voor iedereen die van sport en
+              gezelligheid houdt.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button href="/agenda/bestuurskamer" variant="secondary">
+                Bekijk agenda
+              </Button>
+              <Button href="/contact" variant="tertiary">
+                Contact
+              </Button>
+            </div>
+          </div>
+          <Image
+            src="/logos/logo-wordmark.svg"
+            alt="BELSA"
+            width={220}
+            height={73}
+            className="w-[220px] h-auto"
+          />
+        </Container>
+      </section>
+
+      <section className="py-14">
+        <Container>
+          <div className="mb-6 flex items-baseline justify-between">
+            <h2>Laatste nieuws</h2>
+            <Button href="/nieuws" variant="ghost" size="sm">
+              Alle nieuws →
+            </Button>
+          </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {nieuws.map((n) => (
+              <Card
+                key={n.title}
+                eyebrow={n.tag}
+                title={n.title}
+                footer={
+                  <div className="flex items-center justify-between">
+                    <Badge tone="neutral">{n.club}</Badge>
+                    <Button href="/nieuws" variant="ghost" size="sm">
+                      Lees meer →
+                    </Button>
+                  </div>
+                }
+              >
+                {n.body}
+              </Card>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-surface-sunken py-14">
+        <Container>
+          <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+            <h2>Agenda deze week</h2>
+            <div className="flex gap-2">
+              <Button href="/agenda/bestuurskamer" variant="ghost" size="sm">
+                Bestuurskamer →
+              </Button>
+              <Button href="/agenda/kantine" variant="ghost" size="sm">
+                Kantine →
+              </Button>
+            </div>
+          </div>
+          <div className="flex flex-col gap-0.5 overflow-hidden rounded-lg border border-border-default">
+            {agendaHighlights.map((e, i) => (
+              <div
+                key={e.title}
+                className={[
+                  "flex items-center gap-5 px-5 py-4",
+                  i % 2 ? "bg-surface-page" : "bg-white",
+                ].join(" ")}
+              >
+                <div className="w-[90px] font-display font-extrabold text-fg-primary">{e.date}</div>
+                <div className="w-[70px] tabular-nums text-fg-muted">{e.time}</div>
+                <div className="flex-1 font-bold">{e.title}</div>
+                <Badge tone={e.type === "Bestuurskamer" ? "dark" : "primary"}>{e.type}</Badge>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+    </>
   );
 }
