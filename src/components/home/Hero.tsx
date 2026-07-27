@@ -6,11 +6,11 @@ import { Container } from "@/components/layout/Container";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
-type Variant = "geel" | "donker" | "foto";
+type Variant = "geel" | "geelfoto" | "foto";
 
 const variants: { id: Variant; label: string }[] = [
   { id: "geel", label: "1 · Geel" },
-  { id: "donker", label: "2 · Donker" },
+  { id: "geelfoto", label: "2 · Geel + foto" },
   { id: "foto", label: "3 · Foto" },
 ];
 
@@ -57,7 +57,7 @@ export function Hero() {
                 <Button href="/agenda/bestuurskamer" variant="secondary">
                   Bekijk agenda
                 </Button>
-                <Button href="/contact" variant="tertiary">
+                <Button href="/contact" variant="outline-dark">
                   Contact
                 </Button>
               </div>
@@ -67,29 +67,30 @@ export function Hero() {
         </div>
       )}
 
-      {variant === "donker" && (
-        <div className="bg-black-900">
-          <Container className="flex flex-wrap items-center justify-between gap-8 py-16">
+      {variant === "geelfoto" && (
+        <div className="relative min-h-[520px] overflow-hidden bg-primary">
+          <Image
+            src="/foto-1.jpg"
+            alt="Sportpark De Smeltkroes"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-primary/80" />
+          <Container className="relative z-10 flex min-h-[520px] flex-col justify-end gap-8 py-16">
             <div className="max-w-[560px]">
-              <Badge tone="primary">{badgeText}</Badge>
-              <h1 className="mt-4 text-white">{title}</h1>
-              <p className="mt-4 text-lg text-white/70">{intro}</p>
+              <Badge tone="dark">{badgeText}</Badge>
+              <h1 className="mt-4 text-fg-on-yellow">{title}</h1>
+              <p className="mt-4 text-lg text-black-800">{intro}</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Button href="/agenda/bestuurskamer" variant="primary">
+                <Button href="/agenda/bestuurskamer" variant="secondary">
                   Bekijk agenda
                 </Button>
-                <Button href="/contact" variant="outline-light">
+                <Button href="/contact" variant="outline-dark">
                   Contact
                 </Button>
               </div>
             </div>
-            <Image
-              src="/logos/logo-wordmark-reversed.svg"
-              alt="BELSA"
-              width={220}
-              height={73}
-              className="h-auto w-[220px]"
-            />
           </Container>
         </div>
       )}
@@ -101,7 +102,7 @@ export function Hero() {
             alt="Sportpark De Smeltkroes"
             fill
             priority
-            className="object-cover"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
           <Container className="relative z-10 flex min-h-[520px] flex-col justify-end gap-8 py-16">
