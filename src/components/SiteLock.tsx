@@ -42,7 +42,8 @@ export function SiteLock({ children }: { children: React.ReactNode }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black-900 px-4">
       <form onSubmit={handleSubmit} className="w-full max-w-sm rounded-lg bg-white p-8 shadow-lg">
-        <Image src="/logos/logo-wordmark.svg" alt="BELSA" width={140} height={47} className="h-9 w-auto" />
+        <Image src="/favicon-b-badge.png" alt="" width={48} height={48} className="h-12 w-12 rounded-xl" />
+        <Image src="/logos/logo-wordmark.svg" alt="BELSA" width={140} height={47} className="mt-4 h-9 w-auto" />
         <p className="mt-4 text-sm text-fg-secondary">
           Deze site is nog niet live. Vul het wachtwoord in om verder te gaan.
         </p>
