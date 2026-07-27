@@ -11,13 +11,13 @@ export function Hero() {
         alt="Sportpark De Smeltkroes"
         fill
         priority
-        className="object-cover object-center"
+        className="object-cover object-bottom"
       />
       <div className="absolute inset-0 bg-primary/80" />
       <Container className="relative z-10 flex min-h-[520px] flex-col justify-end gap-8 py-16">
         <div className="max-w-[560px]">
           <Badge tone="dark">Sportpark De Smeltkroes</Badge>
-          <h1 className="mt-4 text-fg-on-yellow">Het kloppend hart van sportief Liessel</h1>
+          <h1 className="mt-4 leading-[1.1] text-fg-on-yellow">Het kloppend hart van sportief Liessel</h1>
           <p className="mt-4 text-lg text-black-800">
             Thuis van RKSV Liessel, Livoc, De Eendracht en Tennisclub Liessel — voor iedereen die van sport en
             gezelligheid houdt.
