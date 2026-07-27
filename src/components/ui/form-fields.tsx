@@ -7,7 +7,7 @@ import type {
 } from "react";
 
 const fieldBase =
-  "w-full rounded-md border-[1.5px] px-3.5 py-2.5 text-[15px] font-body text-fg-primary bg-white outline-none transition-colors duration-150 focus:border-primary";
+  "w-full rounded-md border-[1.5px] px-3.5 py-2.5 text-base font-body text-fg-primary bg-white outline-none transition-colors duration-150 focus:border-primary";
 
 function fieldBorder(error?: boolean) {
   return error ? "border-error" : "border-border-strong";

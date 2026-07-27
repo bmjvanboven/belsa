@@ -239,6 +239,10 @@
 
   html {
     scroll-behavior: smooth;
+    /* Disables the elastic rubber-band bounce on iOS/macOS Safari — without
+       this, bouncing past the top/bottom briefly reveals blank canvas
+       beyond the page content (e.g. a white flash below a dark footer). */
+    overscroll-behavior-y: none;
   }
 
   body {

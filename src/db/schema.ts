@@ -64,6 +64,21 @@ export const contactPersons = pgTable("contact_persons", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+export const tenants = pgTable("tenants", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  sport: varchar("sport", { length: 100 }).notNull(),
+  summary: text("summary").notNull(),
+  body: text("body").notNull(),
+  website: text("website"),
+  logoUrl: text("logo_url"),
+  sortOrder: integer("sort_order").notNull().default(0),
+  published: boolean("published").notNull().default(true),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export const adminUsers = pgTable("admin_users", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull().unique(),
@@ -82,3 +97,5 @@ export type ContactPerson = typeof contactPersons.$inferSelect;
 export type NewContactPerson = typeof contactPersons.$inferInsert;
 export type AdminUser = typeof adminUsers.$inferSelect;
 export type NewAdminUser = typeof adminUsers.$inferInsert;
+export type Tenant = typeof tenants.$inferSelect;
+export type NewTenant = typeof tenants.$inferInsert;

@@ -6,6 +6,7 @@ const sections = [
   { href: "/beheer/agenda", title: "Agenda", description: "Reserveringen bestuurskamer en kantine beheren" },
   { href: "/beheer/downloads", title: "Downloads", description: "Documenten toevoegen en beheren" },
   { href: "/beheer/contacten", title: "Contactpersonen", description: "Bestuur en contactpersonen beheren" },
+  { href: "/beheer/huurders", title: "Huurders", description: "Verenigingen en hun pagina's beheren" },
 ];
 
 export default function BeheerDashboardPage() {

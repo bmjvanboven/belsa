@@ -1,5 +1,5 @@
 import { db } from "./index";
-import { news, agendaItems, downloads, contactPersons } from "./schema";
+import { news, agendaItems, downloads, contactPersons, tenants } from "./schema";
 
 async function main() {
   console.log("Seeding database...");
@@ -8,6 +8,7 @@ async function main() {
   await db.delete(agendaItems);
   await db.delete(downloads);
   await db.delete(contactPersons);
+  await db.delete(tenants);
 
   await db.insert(news).values([
     {
@@ -97,22 +98,39 @@ async function main() {
 
   await db.insert(downloads).values([
     {
-      title: "Huishoudelijk reglement BELSA",
-      filename: "huishoudelijk-reglement-belsa.pdf",
-      url: "/downloads/huishoudelijk-reglement-belsa.pdf",
+      title: "Reglement gebruik overdekte sportaccommodatie (2012)",
+      filename: "reglement-overdekte-sportaccommodatie-2012.pdf",
+      url: "/downloads/reglement-overdekte-sportaccommodatie-2012.pdf",
       category: "Reglementen",
+      fileSize: 354159,
     },
     {
-      title: "Reserveringsformulier kantine",
-      filename: "reserveringsformulier-kantine.pdf",
-      url: "/downloads/reserveringsformulier-kantine.pdf",
-      category: "Formulieren",
+      title: "Huisregels sportpark De Smeltkroes",
+      filename: "huisregels-sportpark.pdf",
+      url: "/downloads/huisregels-sportpark.pdf",
+      category: "Reglementen",
+      fileSize: 301867,
     },
     {
-      title: "Verhuur- en gebruiksvoorwaarden sportpark",
-      filename: "verhuurvoorwaarden-sportpark.pdf",
-      url: "/downloads/verhuurvoorwaarden-sportpark.pdf",
+      title: "Alcoholbeleid kantine",
+      filename: "alcoholbeleid-kantine.pdf",
+      url: "/downloads/alcoholbeleid-kantine.pdf",
       category: "Reglementen",
+      fileSize: 440839,
+    },
+    {
+      title: "Informatieplan BELSA",
+      filename: "informatieplan-belsa.pdf",
+      url: "/downloads/informatieplan-belsa.pdf",
+      category: "Informatie",
+      fileSize: 196441,
+    },
+    {
+      title: "Sportpark De Smeltkroes — van idee naar realisatie",
+      filename: "sportpark-de-smeltkroes-van-idee-naar-realisatie.pdf",
+      url: "/downloads/sportpark-de-smeltkroes-van-idee-naar-realisatie.pdf",
+      category: "Sportpark",
+      fileSize: 3494117,
     },
   ]);
 
@@ -121,6 +139,49 @@ async function main() {
     { name: "Marieke Verhoeven", role: "Secretaris", email: "secretaris@sportparkdesmeltkroes.nl", sortOrder: 2 },
     { name: "Peter Kuijpers", role: "Penningmeester", email: "penningmeester@sportparkdesmeltkroes.nl", sortOrder: 3 },
     { name: "Anne Manders", role: "Bestuurslid accommodatie", email: "accommodatie@sportparkdesmeltkroes.nl", sortOrder: 4 },
+  ]);
+
+  await db.insert(tenants).values([
+    {
+      name: "RKSV Liessel",
+      slug: "rksv-liessel",
+      sport: "Voetbal",
+      summary:
+        "De voetbalclub van Liessel, met teams voor senioren, junioren en de allerkleinsten. Thuiswedstrijden op de hoofdvelden van het sportpark.",
+      body: "RKSV Liessel is de voetbalclub van Liessel en speelt haar thuiswedstrijden op de hoofdvelden van sportpark De Smeltkroes. De club heeft teams voor senioren, junioren en de allerkleinsten, en draait grotendeels op de inzet van vrijwilligers uit het dorp.\n\nNieuwe leden zijn altijd welkom, van jeugd tot senioren. Voor meer informatie over trainingstijden, teams en lidmaatschap kun je contact opnemen via de club.",
+      website: null,
+      sortOrder: 1,
+    },
+    {
+      name: "Livoc",
+      slug: "livoc",
+      sport: "Volleybal",
+      summary:
+        "Volleybalvereniging Livoc traint en speelt in de sporthal van het sportpark, met teams in verschillende klasses.",
+      body: "Livoc is de volleybalvereniging van Liessel en maakt gebruik van de sporthal op sportpark De Smeltkroes. De vereniging heeft teams in verschillende klasses, voor zowel dames als heren.\n\nOf je nu recreatief of competitief wilt volleyballen, bij Livoc is er ruimte voor iedereen. Neem contact op voor meer informatie over trainingen en aanmelden.",
+      website: null,
+      sortOrder: 2,
+    },
+    {
+      name: "De Eendracht",
+      slug: "de-eendracht",
+      sport: "Korfbal",
+      summary:
+        "Korfbalvereniging De Eendracht, met veel aandacht voor jeugd en breedtesport naast de senioren teams.",
+      body: "Korfbalvereniging De Eendracht speelt en traint op sportpark De Smeltkroes. De vereniging besteedt veel aandacht aan jeugd en breedtesport, naast de senioren teams.\n\nKinderen vanaf 6 jaar kunnen zich aanmelden om kennis te maken met korfbal. Voor meer informatie over teams en inschrijven kun je terecht bij het bestuur.",
+      website: null,
+      sortOrder: 3,
+    },
+    {
+      name: "Tennisclub Liessel",
+      slug: "tennisclub-liessel",
+      sport: "Tennis & padel",
+      summary:
+        "Tennisclub Liessel beheert de tennis- en padelbanen van het sportpark, met clubavonden en toernooien voor alle niveaus.",
+      body: "Tennisclub Liessel beheert de tennis- en padelbanen van sportpark De Smeltkroes. De club organiseert clubavonden en toernooien voor leden van alle niveaus, en beschikt sinds kort ook over gloednieuwe padelbanen.\n\nWil je lid worden of eens meespelen? Neem contact op met de tennisclub voor meer informatie.",
+      website: null,
+      sortOrder: 4,
+    },
   ]);
 
   console.log("Done seeding.");
