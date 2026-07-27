@@ -1,8 +1,19 @@
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Container } from "@/components/layout/Container";
-import { Alert } from "@/components/ui/Alert";
+import { AgendaList } from "@/components/agenda/AgendaList";
+import { db } from "@/db";
+import { agendaItems } from "@/db/schema";
+import { asc, eq } from "drizzle-orm";
 
-export default function AgendaBestuurskamerPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AgendaBestuurskamerPage() {
+  const items = await db
+    .select()
+    .from(agendaItems)
+    .where(eq(agendaItems.type, "bestuurskamer"))
+    .orderBy(asc(agendaItems.date), asc(agendaItems.startTime));
+
   return (
     <>
       <PageHeader
@@ -11,9 +22,7 @@ export default function AgendaBestuurskamerPage() {
         intro="Reserveringen en bijeenkomsten in de bestuurskamer van sportpark De Smeltkroes."
       />
       <Container className="py-12">
-        <Alert tone="info" title="Binnenkort compleet">
-          Hier komt de volledige agenda van de bestuurskamer, inclusief lopende reserveringen.
-        </Alert>
+        <AgendaList items={items} />
       </Container>
     </>
   );

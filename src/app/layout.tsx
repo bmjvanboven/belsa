@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: "BELSA — Sportpark De Smeltkroes",
   description:
     "Stichting Beheer en Exploitatie Liesselse Sport Accommodatie — thuis van RKSV Liessel, Livoc, De Eendracht en Tennisclub Liessel in Liessel.",
+  // Tied to the same SITE_PASSWORD gate as src/proxy.ts + src/app/robots.ts —
+  // remove SITE_PASSWORD at go-live to make the site indexable again.
+  robots: process.env.SITE_PASSWORD ? { index: false, follow: false } : undefined,
 };
 
 export default function RootLayout({

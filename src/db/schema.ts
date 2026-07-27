@@ -64,6 +64,14 @@ export const contactPersons = pgTable("contact_persons", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+export const adminUsers = pgTable("admin_users", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export type News = typeof news.$inferSelect;
 export type NewNews = typeof news.$inferInsert;
 export type AgendaItem = typeof agendaItems.$inferSelect;
@@ -72,3 +80,5 @@ export type Download = typeof downloads.$inferSelect;
 export type NewDownload = typeof downloads.$inferInsert;
 export type ContactPerson = typeof contactPersons.$inferSelect;
 export type NewContactPerson = typeof contactPersons.$inferInsert;
+export type AdminUser = typeof adminUsers.$inferSelect;
+export type NewAdminUser = typeof adminUsers.$inferInsert;

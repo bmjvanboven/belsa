@@ -3,54 +3,27 @@ import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Alert } from "@/components/ui/Alert";
+import { db } from "@/db";
+import { news, agendaItems } from "@/db/schema";
+import { asc, desc, eq, gte } from "drizzle-orm";
+import { formatAgendaDate, formatTime } from "@/lib/format";
 
-const nieuws = [
-  {
-    tag: "Voetbal",
-    club: "RKSV Liessel",
-    title: "RKSV Liessel wint van SV Meijel",
-    body: "Zaterdag won het eerste elftal met 3-1 op eigen veld. Een sterke tweede helft was doorslaggevend.",
-  },
-  {
-    tag: "Volleybal",
-    club: "Livoc",
-    title: "Livoc dames promoveren naar 2e klasse",
-    body: "Na een sterk seizoen is promotie een feit. Komend weekend is de huldiging in de kantine.",
-  },
-  {
-    tag: "Korfbal",
-    club: "De Eendracht",
-    title: "Inschrijving jeugdkorfbal geopend",
-    body: "Kinderen van 6 t/m 12 jaar kunnen zich weer aanmelden voor het nieuwe seizoen.",
-  },
-  {
-    tag: "Tennis",
-    club: "Tennisclub Liessel",
-    title: "Nieuwe padelbanen geopend",
-    body: "Vanaf deze maand zijn er twee gloednieuwe padelbanen te reserveren via de app.",
-  },
-  {
-    tag: "Sportpark",
-    club: "Belsa",
-    title: "Onderhoud hoofdveld in augustus",
-    body: "Het hoofdveld wordt opnieuw ingezaaid; trainingen wijken tijdelijk uit naar veld 2.",
-  },
-  {
-    tag: "Nieuws",
-    club: "Belsa",
-    title: "Nieuwe kantinebeheerder gezocht",
-    body: "We zoeken een gezellig gezin of team dat de kantine op zaterdagen wil runnen.",
-  },
-];
+export const dynamic = "force-dynamic";
 
-const agendaHighlights = [
-  { date: "do 30 jul", time: "19:30", title: "Bestuursvergadering BELSA", type: "Bestuurskamer" as const },
-  { date: "vr 31 jul", time: "20:00", title: "Kantineborrel vrijwilligers", type: "Kantine" as const },
-  { date: "ma 3 aug", time: "20:00", title: "Overleg RKSV Liessel bestuur", type: "Bestuurskamer" as const },
-  { date: "za 8 aug", time: "10:00", title: "Toernooi-ontvangst gasten", type: "Kantine" as const },
-];
+export default async function Home() {
+  const today = new Date().toISOString().slice(0, 10);
 
-export default function Home() {
+  const [latestNews, upcomingAgenda] = await Promise.all([
+    db.select().from(news).where(eq(news.published, true)).orderBy(desc(news.publishedAt)).limit(6),
+    db
+      .select()
+      .from(agendaItems)
+      .where(gte(agendaItems.date, today))
+      .orderBy(asc(agendaItems.date), asc(agendaItems.startTime))
+      .limit(4),
+  ]);
+
   return (
     <>
       <section className="bg-primary">
@@ -89,25 +62,31 @@ export default function Home() {
               Alle nieuws →
             </Button>
           </div>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {nieuws.map((n) => (
-              <Card
-                key={n.title}
-                eyebrow={n.tag}
-                title={n.title}
-                footer={
-                  <div className="flex items-center justify-between">
-                    <Badge tone="neutral">{n.club}</Badge>
-                    <Button href="/nieuws" variant="ghost" size="sm">
-                      Lees meer →
-                    </Button>
-                  </div>
-                }
-              >
-                {n.body}
-              </Card>
-            ))}
-          </div>
+          {latestNews.length === 0 ? (
+            <Alert tone="info" title="Nog geen nieuws">
+              Er zijn nog geen berichten geplaatst.
+            </Alert>
+          ) : (
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {latestNews.map((n) => (
+                <Card
+                  key={n.id}
+                  eyebrow={n.tag}
+                  title={n.title}
+                  footer={
+                    <div className="flex items-center justify-between">
+                      <Badge tone="neutral">{n.club}</Badge>
+                      <Button href={`/nieuws/${n.slug}`} variant="ghost" size="sm">
+                        Lees meer →
+                      </Button>
+                    </div>
+                  }
+                >
+                  {n.excerpt}
+                </Card>
+              ))}
+            </div>
+          )}
         </Container>
       </section>
 
@@ -124,22 +103,29 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <div className="flex flex-col gap-0.5 overflow-hidden rounded-lg border border-border-default">
-            {agendaHighlights.map((e, i) => (
-              <div
-                key={e.title}
-                className={[
-                  "flex items-center gap-5 px-5 py-4",
-                  i % 2 ? "bg-surface-page" : "bg-white",
-                ].join(" ")}
-              >
-                <div className="w-[90px] font-display font-extrabold text-fg-primary">{e.date}</div>
-                <div className="w-[70px] tabular-nums text-fg-muted">{e.time}</div>
-                <div className="flex-1 font-bold">{e.title}</div>
-                <Badge tone={e.type === "Bestuurskamer" ? "dark" : "primary"}>{e.type}</Badge>
-              </div>
-            ))}
-          </div>
+          {upcomingAgenda.length === 0 ? (
+            <Alert tone="info" title="Nog geen reserveringen">
+              Er staan op dit moment geen reserveringen gepland.
+            </Alert>
+          ) : (
+            <div className="flex flex-col gap-0.5 overflow-hidden rounded-lg border border-border-default">
+              {upcomingAgenda.map((e, i) => (
+                <div
+                  key={e.id}
+                  className={["flex flex-wrap items-center gap-3 sm:gap-5 px-5 py-4", i % 2 ? "bg-surface-page" : "bg-white"].join(
+                    " "
+                  )}
+                >
+                  <div className="w-[90px] font-display font-extrabold text-fg-primary">{formatAgendaDate(e.date)}</div>
+                  <div className="w-[70px] tabular-nums text-fg-muted">{formatTime(e.startTime)}</div>
+                  <div className="flex-1 min-w-[160px] font-bold">{e.title}</div>
+                  <Badge tone={e.type === "bestuurskamer" ? "dark" : "primary"}>
+                    {e.type === "bestuurskamer" ? "Bestuurskamer" : "Kantine"}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          )}
         </Container>
       </section>
     </>
