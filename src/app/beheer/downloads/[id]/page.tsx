@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { downloads } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { DownloadForm } from "../DownloadForm";
+import { BackLink } from "@/components/admin/BackLink";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,7 @@ export default async function EditDownloadPage({ params }: { params: Params }) {
 
   return (
     <div>
+      <BackLink href="/beheer/downloads" label="Downloads" />
       <h1>Document bewerken</h1>
       <div className="mt-6 max-w-2xl">
         <DownloadForm

@@ -31,7 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl" className={`${outfit.variable} ${nunitoSans.variable} h-full`}>
+    <html
+      lang="nl"
+      data-scroll-behavior="smooth"
+      className={`${outfit.variable} ${nunitoSans.variable} h-full`}
+    >
       <body className="min-h-full flex flex-col">
         <Navbar />
         <main className="flex-1">{children}</main>

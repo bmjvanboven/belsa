@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 import { Container } from "@/components/layout/Container";
+import { AdminContainer } from "@/components/layout/AdminContainer";
 
 export default async function BeheerProtectedLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
@@ -29,7 +30,7 @@ export default async function BeheerProtectedLayout({ children }: { children: Re
           </form>
         </Container>
       </div>
-      <Container className="py-10">{children}</Container>
+      <AdminContainer className="py-10">{children}</AdminContainer>
     </div>
   );
 }

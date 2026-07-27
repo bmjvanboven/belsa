@@ -10,7 +10,7 @@ const sections = [
 
 export default function BeheerDashboardPage() {
   return (
-    <div>
+    <div className="max-w-3xl">
       <h1>Dashboard</h1>
       <p className="mt-2 text-fg-secondary">Kies hieronder wat je wilt beheren.</p>
       <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">

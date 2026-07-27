@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { news } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NewsForm } from "../NewsForm";
+import { BackLink } from "@/components/admin/BackLink";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,7 @@ export default async function EditNewsPage({ params }: { params: Params }) {
 
   return (
     <div>
+      <BackLink href="/beheer/nieuws" label="Nieuws" />
       <h1>Nieuwsbericht bewerken</h1>
       <div className="mt-6 max-w-2xl">
         <NewsForm

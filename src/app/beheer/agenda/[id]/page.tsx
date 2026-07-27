@@ -4,6 +4,7 @@ import { agendaItems } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { formatTime } from "@/lib/format";
 import { AgendaItemForm } from "../AgendaItemForm";
+import { BackLink } from "@/components/admin/BackLink";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +17,7 @@ export default async function EditAgendaItemPage({ params }: { params: Params })
 
   return (
     <div>
+      <BackLink href="/beheer/agenda" label="Agenda" />
       <h1>Reservering bewerken</h1>
       <div className="mt-6 max-w-2xl">
         <AgendaItemForm

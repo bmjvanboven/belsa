@@ -3,6 +3,7 @@ import { Table } from "@/components/ui/Table";
 import { Button } from "@/components/ui/Button";
 import { Alert } from "@/components/ui/Alert";
 import { ConfirmDeleteButton } from "@/components/admin/ConfirmDeleteButton";
+import { BackLink } from "@/components/admin/BackLink";
 import { db } from "@/db";
 import { contactPersons } from "@/db/schema";
 import { asc } from "drizzle-orm";
@@ -15,6 +16,7 @@ export default async function BeheerContactenPage() {
 
   return (
     <div>
+      <BackLink href="/beheer" label="Dashboard" />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1>Contactpersonen</h1>
         <Button href="/beheer/contacten/nieuw" variant="primary" size="sm">

@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { contactPersons } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { ContactPersonForm } from "../ContactPersonForm";
+import { BackLink } from "@/components/admin/BackLink";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,7 @@ export default async function EditContactPersonPage({ params }: { params: Params
 
   return (
     <div>
+      <BackLink href="/beheer/contacten" label="Contactpersonen" />
       <h1>Contactpersoon bewerken</h1>
       <div className="mt-6 max-w-2xl">
         <ContactPersonForm

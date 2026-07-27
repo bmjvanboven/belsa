@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Alert } from "@/components/ui/Alert";
 import { ConfirmDeleteButton } from "@/components/admin/ConfirmDeleteButton";
+import { BackLink } from "@/components/admin/BackLink";
 import { db } from "@/db";
 import { news } from "@/db/schema";
 import { desc } from "drizzle-orm";
@@ -16,6 +17,7 @@ export default async function BeheerNieuwsPage() {
 
   return (
     <div>
+      <BackLink href="/beheer" label="Dashboard" />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1>Nieuws</h1>
         <Button href="/beheer/nieuws/nieuw" variant="primary" size="sm">

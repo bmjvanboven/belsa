@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import Link from "next/link";
 import type { ButtonHTMLAttributes, AnchorHTMLAttributes, ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "tertiary" | "ghost";
+type Variant = "primary" | "secondary" | "tertiary" | "ghost" | "outline-light";
 type Size = "sm" | "md" | "lg";
 
 const base =
@@ -22,6 +22,7 @@ const variants: Record<Variant, string> = {
   tertiary:
     "bg-transparent text-fg-primary border-border-strong hover:border-black-900",
   ghost: "bg-transparent text-fg-primary border-transparent hover:bg-gray-100",
+  "outline-light": "bg-transparent text-white border-white/40 hover:border-white hover:bg-white/10",
 };
 
 function classes(variant: Variant, size: Size, className?: string) {
